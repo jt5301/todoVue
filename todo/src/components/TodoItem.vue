@@ -1,14 +1,22 @@
 <template>
-  <div class="todo-item">
-    <div>{{singleTodo.title}}</div>
-    <div>{{singleTodo.complete}}</div>
+  <div class="todo-item" v-bind:class="{'is-complete':singleTodo.complete}">
+    <p>
+      <input type="checkbox" v-on:change="markComplete" />
+      {{singleTodo.title}}
+      <button class="del">delete</button>
+    </p>
   </div>
 </template>
 
 <script>
 export default {
   name: 'TodoItem',
-  props: ['singleTodo']
+  props: ['singleTodo'],
+  methods: {
+    markComplete() {
+      this.singleTodo.complete = !this.singleTodo.complete
+    }
+  }
 }
 </script>
 
@@ -32,3 +40,7 @@ export default {
   float: right;
 }
 </style>
+<!--
+line 2: v-bind binds the class 'iscomplete' depending on if singletodo.complete evaluates to true or not
+line 4: v-on listens to dom events and will listen for a change event, which will then run the method markcomplete
+ -->
